@@ -1,25 +1,33 @@
-const InvertedIndex = require('../src/inverted-index');
-const correctBook = require('../books.json');
-const wrongBook = require('../wrongFormat.json');
-const emptyBook = require('../emptyBook.json');
+const book = [
+  {
+    title: 'Alice in Wonderland',
+    text: 'Alice falls into a rabbit hole and enters a world full of imagination.'
+  },
+
+  {
+    title: 'The Lord of the Rings: The Fellowship of the Ring.',
+    text: 'An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring.'
+  }
+];
+
 const invertedIndex = new InvertedIndex();
-invertedIndex.createIndex(correctBook, 'books.json');
+invertedIndex.createIndex(book, 'books.json');
 
 describe('Read book data', () => {
   it('Should return false for empty JSON Array', () => {
-    expect(invertedIndex.validateFile(emptyBook)[0]).toEqual(false);
+    expect(invertedIndex.isValidJson([])).toBeFalsy();
   });
 
   it('Should return true for valid JSON Array', () => {
-    expect(invertedIndex.validateFile(correctBook)[0]).toEqual(true);
+    expect(invertedIndex.isValidJson(book)).toBeTruthy();
   });
 
   it('Should return false for wrong key json file', () => {
-    expect(invertedIndex.validateFile(invalidBook)[0]).toEqual(false);
+    expect(invertedIndex.isValidJson('invalidBook')).toBeFalsy();
   });
 });
 
-describe('Populate Index',() => {
+describe('Populate Index', () => {
   it('Should create index once JSON file has been read', () => {
     expect().toEqual();
   });
@@ -31,13 +39,12 @@ describe('Populate Index',() => {
 
 describe('Search Index', () => {
   it('Should return correct index for an array of search terms', () => {
-    expect(invertedIndex.searchIndex('books.json', ['alice']).toEqual(
-      {'books.json':
-    {'alice': [1]}
-  }));
+    expect(invertedIndex.searchIndex('books.json', 'alice')).toEqual(
+      { alice: [1]
+      });
   });
 
   it('Should return correct index results for searched term', () => {
-    expect(invertedIndex.searchIndex('books.json','alice and')).toEqual({'alice': [1], 'and': [1,2]});
+    expect(invertedIndex.searchIndex('books.json', 'alice and')).toEqual({ alice: [1], and: [1, 2] });
   });
 });
