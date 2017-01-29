@@ -1,0 +1,84 @@
+<html ng-app="myApp">
+
+<head>
+  <title>Inverted Index</title>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Tangerine:bold">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-controller="myctrl">
+  <div class="row">
+    <div class="inverted indigo col s12 white-text">
+      <h3> Inverted Index</h3>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col s6">
+        <form>
+          <div class="selectFile">
+            <input type="file" id="json-file" accept=".json" multiple></br>
+          </div>
+        </form>
+        <form>
+          <select class="browser-default" ng-model="selectedFile">
+            <option value="" disabled selected>Select File</option>
+            <option value="{{files}}" ng-repeat="files in fileName">{{files}}</option>
+          </select>
+        </form>
+        <form>
+          <div class="createIndex">
+            <button class="indigo white-text btn" id="createIndex" ng-click="createIndex()">Create index</button>
+          </div>
+        </form>
+      </div>
+      <div class="col s6">
+        <form>
+          <div class="searchIndex">
+            <input placeholder="Search" ng-model="query" id="searchInput" maxlength="100">
+          </div>
+        </form>
+        <form>
+          <select class="browser-default" ng-model="selectedFile">
+            <option value="" disabled selected>Select File</option>
+            <option value="{{files}}" ng-repeat="files in fileName">{{files}}</option>
+          </select>
+        </form>
+        <form>
+          <div>
+            <button class="indigo white-text btn" id="search" ng-click="search()">Search <i class="material-icons">search</i></button></br>
+          </div>
+        </form>
+      </div>
+      <table class="striped" ng-show="showTable">
+        <thead>
+          <tr>
+            <span ng-if="documents">
+            <th data-field="id">{{selectedFile}}</th>
+            <th ng-repeat="num in documents">Doc {{num}}</th>
+            </span>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key,values) in result">
+            <td> {{key}}</td>
+            <td ng-repeat="num in documents">
+              <span ng-repeat="value in values">
+              <span ng-if="value == num"><i class="material-icons">check</i>
+              </span>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../src/inverted-index.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>
