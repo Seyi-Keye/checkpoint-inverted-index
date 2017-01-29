@@ -29,7 +29,7 @@ describe('Read book data', () => {
 
 describe('Populate Index', () => {
   it('Should create index once JSON file has been read', () => {
-    expect().toEqual();
+    expect(Object.keys(invertedIndex.getIndex('books.json')).length).toBeGreaterThan(0);
   });
 
   it('Should ensure each key maps correct object', () => {

@@ -23,13 +23,10 @@ class InvertedIndex {
       });
       this.allFiles[fileName] = this.index;
       this.docNumber[fileName] = this.docNum;
-
       return 'Index created';
     }
-
     return 'Index not created';
   }
-
 
   assignIndex(item, docID) {
     item.forEach((item) => {
