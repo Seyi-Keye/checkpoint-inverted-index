@@ -1,4 +1,5 @@
 # inverted-index
+[![Code Climate](https://codeclimate.com/github/andela-oaromokeye/checkpoint-inverted-index/badges/gpa.svg)](https://codeclimate.com/github/andela-oaromokeye/checkpoint-inverted-index)
 [![Build Status](https://travis-ci.org/andela-oaromokeye/checkpoint-inverted-index.svg?branch=master)](https://travis-ci.org/andela-oaromokeye/checkpoint-inverted-index)
 
 ## Introduction
@@ -16,11 +17,11 @@ Inverted index takes a JSON array of text objects and creates an index from the 
  - To test the app run: `gulp watch`
  - To run the tests run: `npm test`
 
-## Limitation 
- 
+## Limitation
+
 ## Contributing
  1. Fork this repository to your account.
- 2. Clone to your repository: `git clone git@github.com:your-username/checkpoint-inverted-index.git` 
+ 2. Clone to your repository: `git clone git@github.com:your-username/checkpoint-inverted-index.git`
  3. Create your feature branch: `git checkout -b new-feature`
  4. Commit your changes: `git commit -m "did something"`
  5. Push to the remote branch: `git push origin new-feature`

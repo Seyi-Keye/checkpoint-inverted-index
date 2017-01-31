@@ -7,18 +7,18 @@ const browserify = require('gulp-browserify');
 
 gulp.task('default', ['serve', 'watch', 'scripts']);
 
-gulp.task('serve', ()=> {
-    browserSync.init({
-        server: {
-            baseDir: "./",
-            index: "./src/frontend/index.html",
+gulp.task('serve', () => {
+  browserSync.init({
+      server: {
+          baseDir: './',
+          index: './src/frontend/index.html',
         },
-        port: 8000
+      port: 8000
     });
 });
 
 gulp.task('karma', (done) => {
- karma.start({
+  karma.start({
    configFile: path.resolve('karma.conf.js'),
    singleRun: true
  }, () => {
@@ -26,19 +26,12 @@ gulp.task('karma', (done) => {
  });
 });
 
-gulp.task('scripts', () => {
-gulp.src('jasmine/spec/inverted-index-test.js')
-  .pipe(browserify())
-  .pipe(rename('bundle.js'))
-  .pipe(gulp.dest('jasmine/build'));
-});
 
 gulp.task('watch', () => {
-    gulp.watch('*.html',browserSync.reload);
-    gulp.watch('frontend/js/*.js',browserSync.reload);
+  gulp.watch('*.html', browserSync.reload);
+  gulp.watch('frontend/js/*.js', browserSync.reload);
 });
 
 
-gulp.task('test',['karma']);
-
+gulp.task('test', ['karma']);
 

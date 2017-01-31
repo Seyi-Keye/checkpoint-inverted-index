@@ -33,9 +33,7 @@
   },
   "scripts": {
     "test": "gulp test",
-    "start": "gulp",
-    "testmocha": "node node_modules/gulp/bin/gulp test",
-    "postinstall": "node node_modules/gulp/bin/gulp install"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",

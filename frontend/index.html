@@ -12,10 +12,64 @@
 <body ng-controller="myctrl">
   <div class="row">
     <div class="inverted indigo col s12 white-text">
-      <h3> Inverted Index</h3>
+      <h3> Inverted Index <a class="waves-effect indigo white-text right" href="#modal1" >About</a></h3>
+      <!-- Modal Trigger -->
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+      <div class="modal-content">
+      <h4>Inverted Index</h4>
+      <p>An inverted index consists of a list of all the unique words that appear in any document, and for each word, a
+            list of the documents in which it appears. Inverted index object takes a JSON array of text objects and creates
+            an index from the array. The index allows a user to search for text blocks in the array that contain a specified
+            collection of words.</p>
+            <h4>How It Works</h4>
+          <ul>
+            <li>Creating an Index</li>
+            <ol>
+              <li>Choose JSON file(s).</l1>
+              <li>Select JSON file.</li>
+              <li>Click <strong>Create Index</strong> button</li>
+            </ol>
+            <li>Searching an Index</li>
+            <ol>
+              <li>Select a file whose Index has been created already.</l1>
+                <li>Enter your search word(s)</li>
+                <li>CLick on the 'search' button.</li>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">ok</a>
+    </div>
+  </div>
     </div>
   </div>
   <div class="container">
+    <div class="row">
+      <div class="col s6">
+        <div class="about">
+          <h4>About</h4>
+          <p class="text-justify">An inverted index consists of a list of all the unique words that appear in any document, and for each word, a
+            list of the documents in which it appears. Inverted index object takes a JSON array of text objects and creates
+            an index from the array. The index allows a user to search for text blocks in the array that contain a specified
+            collection of words.</p>
+           <div class="row">
+           </div>
+        </div>
+       <div class="col s6">
+          <h4>How It Works</h4>
+          <ul>
+            <li>Creating an Index</li>
+            <ol>
+              <li>Choose JSON file(s).</l1>
+              <li>Select JSON file.</li>
+              <li>Click <strong>Create Index</strong> button</li>
+            </ol>
+            <li>Searching an Index</li>
+            <ol>
+              <li>Select a file whose Index has been created already.</l1>
+                <li>Enter your search word(s)</li>
+                <li>CLick on the 'search' button.</li>
+      </div>
+    </div>
     <div class="row">
       <div class="col s6">
         <form>
@@ -79,6 +133,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script type="text/javascript" src="../src/inverted-index.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script src="js/helper.js"></script>
 </body>
 
 </html>

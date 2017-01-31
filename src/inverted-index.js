@@ -1,12 +1,17 @@
+/**
+ *
+ */
 class InvertedIndex {
   constructor() {
     this.allFiles = {};
     this.index = {};
     this.docNumber = {};
   }
-
+  /**
+   *
+   */
   createIndex(file, fileName) {
-    this.index = {};
+    this.index = {}; // initialize empty object to empty this.index in the constructor
     this.docNum = [];
     if (this.isValidJson(file)) {
       file.forEach((file, index) => {
@@ -16,7 +21,7 @@ class InvertedIndex {
 
         this.docNum.push(docCount);
         const docConcat = `${title} ${text}`;
-        const tokens = InvertedIndex.tokenize(docConcat);
+        const tokens = InvertedIndex.tokenize(docConcat); // change the name from tokens
         const term = new Set(tokens);
 
         this.assignIndex(term, docCount);
@@ -27,7 +32,9 @@ class InvertedIndex {
     }
     return 'Index not created';
   }
-
+  /**
+   *
+   */
   assignIndex(item, docID) {
     item.forEach((item) => {
       if (item in this.index) {
@@ -37,12 +44,16 @@ class InvertedIndex {
       }
     });
   }
-
+  /**
+   *
+   */
   getIndex(fileName) {
     return this.allFiles[fileName];
   }
-
-  isValidJson(jsonArray) {
+  /**
+   *
+   */
+  isValidJson(jsonArray) { // should be static and should be in a different class e.g helper.js
     if (typeof jsonArray !== 'object' || jsonArray.length === 0) {
       return false;
     }
@@ -58,12 +69,16 @@ class InvertedIndex {
       return false;
     }
   }
-
+  /**
+   *
+   */
   static tokenize(text) {
     // Utility method
     return text.toLowerCase().match(/\w+/g);
   }
-
+  /**
+   *
+   */
   searchIndex(fileName, query) {
     let searchQuery = [];
     const searchResult = {};

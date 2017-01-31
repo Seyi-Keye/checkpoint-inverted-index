@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Wed Jan 25 2017 10:49:57 GMT+0100 (WAT)
+// Generated on Tue Jan 31 2017 15:10:54 GMT+0100 (WAT)
 
 module.exports = function(config) {
   config.set({
@@ -12,17 +12,19 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
-    plugins:[
-      'karma-coverage',
-    'karma-coveralls'
-    ],
-
 
     // list of files / patterns to load in the browser
     files: [
-      'jasmine/spec/inverted-index-test.js'
+      'src/inverted-index.js',
+      './jasmine/spec/inverted-index-test.js'
     ],
 
+    plugins:[
+      'karma-jasmine',
+      'karma-coverage',
+      'karma-coveralls',
+      'karma-chrome-launcher'
+    ],
 
     // list of files to exclude
     exclude: [
@@ -32,15 +34,17 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/frontend/js/inverted-index.js': ['coverage']
+      'src/inverted-index.js': ['coverage']
     },
-
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'covarege', 'coveralls'],
+    reporters: ['progress', 'coverage', 'coveralls'],
 
+    coverageReporter: {
+  type : 'lcov',
+  dir : 'coverage/'
+},
 
     // web server port
     port: 9876,
@@ -61,7 +65,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox', 'PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
