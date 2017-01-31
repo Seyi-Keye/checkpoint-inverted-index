@@ -23,7 +23,8 @@ module.exports = function(config) {
       'karma-jasmine',
       'karma-coverage',
       'karma-coveralls',
-      'karma-chrome-launcher'
+      'karma-chrome-launcher',
+      'karma-verbose-reporter'
     ],
 
     // list of files to exclude
@@ -39,7 +40,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage', 'coveralls'],
+    reporters: ['progress', 'coverage', 'coveralls', 'verbose'],
 
     coverageReporter: {
   type : 'lcov',
