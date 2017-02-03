@@ -14,4 +14,4 @@ ratings:
  paths:
  - src/*.js
 exclude_paths:
-- "jasmine/lib/jasmine-2.3.4/jasmine.js"
+- "jasmine/lib/jasmine-2.3.4/*"
