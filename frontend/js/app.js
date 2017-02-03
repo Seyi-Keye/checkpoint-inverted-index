@@ -5,6 +5,7 @@ angular.module('myApp', [])
     $scope.uploadedFiles = {};
     $scope.documents;
     $scope.showTable = false;
+    $scope.singleTable = true;
 
     document.getElementById('json-file').addEventListener('change', (event) => {
       const file = event.target.files;
@@ -33,6 +34,8 @@ angular.module('myApp', [])
     };
 
     $scope.createIndex = () => {
+      $scope.singleTable = true;
+      $scope.allTable = false;
       $scope.index.createIndex($scope.uploadedFiles[$scope.selectedFile],
         $scope.selectedFile);
       $scope.documents = $scope.index.docNumber[$scope.selectedFile];
@@ -45,6 +48,17 @@ angular.module('myApp', [])
     };
 
     $scope.search = () => {
-      $scope.result = $scope.index.searchIndex($scope.selectedFile, $scope.query);
+      if ($scope.searchFile === 'all') {
+        $scope.singleTable = false;
+        $scope.allTable = true;
+        $scope.documents = $scope.index.docNumber;
+      } else {
+        $scope.singleTable = true;
+        $scope.allTable = false;
+        $scope.documents = $scope.index.docNumber[$scope.searchFile];
+      }
+      $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query);
     };
   });
+
+

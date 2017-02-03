@@ -5,33 +5,34 @@ const path = require('path');
 const rename = require('gulp-rename');
 const browserify = require('gulp-browserify');
 
-gulp.task('default', ['serve', 'watch', 'scripts']);
+gulp.task('default', ['serve', 'watch']);
 
 gulp.task('serve', () => {
   browserSync.init({
-      server: {
-          baseDir: './',
-          index: './src/frontend/index.html',
-        },
-      port: 8000
-    });
+    server: {
+      baseDir: ['./frontend', './src'],
+      index: 'index.html',
+    },
+    port: 8000
+  });
 });
 
 gulp.task('karma', (done) => {
   karma.start({
-   configFile: path.resolve('karma.conf.js'),
-   singleRun: true
- }, () => {
-   done();
- });
+    configFile: path.resolve('karma.conf.js'),
+    singleRun: true
+  }, () => {
+    done();
+  });
 });
 
 
 gulp.task('watch', () => {
-  gulp.watch('*.html', browserSync.reload);
+  gulp.watch('frontend/index.html', browserSync.reload);
   gulp.watch('frontend/js/*.js', browserSync.reload);
+  gulp.watch('frontend/css/*.css', browserSync.reload);
+  gulp.watch('./src/inverted-index.js');
 });
 
 
 gulp.task('test', ['karma']);
-

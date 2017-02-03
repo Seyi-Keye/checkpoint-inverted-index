@@ -14,41 +14,35 @@ class InvertedIndex {
   /**
    * Create index
    * @function
-   * @param {Array} file
+   * @param {Array} fileContent
    * @param {string} fileName Name of the file being indexed
    * @return {string} Index created or not
    */
-  createIndex(file, fileName) {
-    this.index = {}; // initialize empty object to empty this.index in the constructor
+  createIndex(fileContent, fileName) {
+    this.index = {};
     this.docNum = [];
-    if (this.isValidJson(file)) {
-      file.forEach((file, index) => {
-        const title = file.title;
-        const text = file.text;
-        const docCount = index + 1;
-
-        this.docNum.push(docCount);
-        const docConcat = `${title} ${text}`;
-        const tokens = InvertedIndex.tokenize(docConcat); // change the name from tokens
-        const term = new Set(tokens);
-
-        this.assignIndex(term, docCount);
-      });
-      this.allFiles[fileName] = this.index;
-      this.docNumber[fileName] = this.docNum;
-      return 'Index created';
-    }
-    return 'Index not created';
+    fileContent.forEach((file, index) => {
+      const title = file.title;
+      const text = file.text;
+      const docCount = index + 1;
+      this.docNum.push(index + 1);
+      const docConcat = `${title} ${text}`;
+      const allWords = InvertedIndex.tokenize(docConcat);
+      const word = new Set(allWords);
+      this.assignIndex(word, docCount);
+    });
+    this.allFiles[fileName] = this.index;
+    this.docNumber[fileName] = this.docNum;
   }
   /**
    * Assign Index
    * @function
-   * @param {Array} item unique item to be indexed
+   * @param {Array} items unique item to be indexed
    * @param {Array} docID file number
    * @return {void}
    */
-  assignIndex(item, docID) {
-    item.forEach((item) => {
+  assignIndex(items, docID) {
+    items.forEach((item) => {
       if (item in this.index) {
         this.index[item].push(docID);
       } else {
@@ -63,28 +57,6 @@ class InvertedIndex {
    */
   getIndex(fileName) {
     return this.allFiles[fileName];
-  }
-  /**
-   * Validate json Array
-   * @function
-   * @param {object} jsonArray
-   * @return {Boolean} true or false
-   */
-  isValidJson(jsonArray) { // should be static and should be in a different class e.g helper.js
-    if (typeof jsonArray !== 'object' || jsonArray.length === 0) {
-      return false;
-    }
-    try {
-      jsonArray.forEach((item) => {
-        if (!(item.hasOwnProperty('title') && item.hasOwnProperty('text'))) {
-          return false;
-        }
-      });
-
-      return true;
-    } catch (err) {
-      return false;
-    }
   }
   /**
    * Static tokenize gets unique word
@@ -106,12 +78,25 @@ class InvertedIndex {
     const searchResult = {};
 
     searchQuery = InvertedIndex.tokenize(query);
-    searchQuery.forEach((word) => {
-      if (word in this.allFiles[fileName]) {
-        searchResult[word] = this.allFiles[fileName][word];
-      }
-    });
 
+    if (fileName === 'all') {
+      const all = Object.keys(this.allFiles);
+      all.forEach((book) => {
+        const result = {};
+        searchQuery.forEach((word) => {
+          if (word in this.allFiles[book]) {
+            result[word] = this.allFiles[book];
+            searchResult[book] = result;
+          }
+        });
+      });
+    } else {
+      searchQuery.forEach((word) => {
+        if (word in this.allFiles[fileName]) {
+          searchResult[word] = this.allFiles[fileName][word];
+        }
+      });
+    }
     return searchResult;
   }
 }
