@@ -13,4 +13,5 @@ engines:
 ratings:
  paths:
  - src/*.js
-exclude_paths: []
+exclude_paths:
+- jasmine/*.*
