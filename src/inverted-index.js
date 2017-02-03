@@ -19,16 +19,18 @@ class InvertedIndex {
    * @return {string} Index created or not
    */
   createIndex(fileContent, fileName) {
-    this.index = {};
+    this.index = {}; // initialize empty object to empty this.index in the constructor
     this.docNum = [];
     fileContent.forEach((file, index) => {
       const title = file.title;
       const text = file.text;
       const docCount = index + 1;
+
       this.docNum.push(index + 1);
       const docConcat = `${title} ${text}`;
       const allWords = InvertedIndex.tokenize(docConcat);
       const word = new Set(allWords);
+
       this.assignIndex(word, docCount);
     });
     this.allFiles[fileName] = this.index;
@@ -37,7 +39,7 @@ class InvertedIndex {
   /**
    * Assign Index
    * @function
-   * @param {Array} items unique item to be indexed
+   * @param {Array} item unique item to be indexed
    * @param {Array} docID file number
    * @return {void}
    */
@@ -57,6 +59,28 @@ class InvertedIndex {
    */
   getIndex(fileName) {
     return this.allFiles[fileName];
+  }
+  /**
+   * Validate json Array
+   * @function
+   * @param {object} jsonArray
+   * @return {Boolean} true or false
+   */
+  isValidJson(jsonArray) {
+    if (typeof jsonArray !== 'object' || jsonArray.length === 0) {
+      return false;
+    }
+    try {
+      jsonArray.forEach((item) => {
+        if (!(item.hasOwnProperty('title') && item.hasOwnProperty('text'))) {
+          return false;
+        }
+      });
+
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
   /**
    * Static tokenize gets unique word

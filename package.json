@@ -36,7 +36,7 @@
   },
   "scripts": {
     "test": "gulp test",
-    "start": "gulp"
+    "start": "./node_modules/.bin/gulp"
   },
   "repository": {
     "type": "git",
