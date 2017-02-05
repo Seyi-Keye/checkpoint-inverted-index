@@ -40,7 +40,8 @@
   "scripts": {
     "test": "gulp test",
     "dev": "./node_modules/.bin/gulp",
-    "start": "node_modules/gulp/bin/gulp.js default"
+    "start": "node server.js",
+    "postinstall": "gulp default"
   },
   "repository": {
     "type": "git",
