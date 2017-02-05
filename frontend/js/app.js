@@ -22,18 +22,18 @@ angular.module('myApp', [])
         return;
       }
       const reader = new FileReader();
-        reader.onloadend = (event) => {
-          this.data = JSON.parse(event.target.result);
-          const check = ValidateFile.isValidContent(this.data);
-          if (!check) {
-            return;
-          }
-          $scope.$apply(() => {
-            $scope.fileName.push(file.name);
-            $scope.uploadedFiles[file.name] = this.data;
-          });
-        };
-        reader.readAsText(file);
+      reader.onloadend = (event) => {
+        this.data = JSON.parse(event.target.result);
+        const check = ValidateFile.isValidContent(this.data);
+        if (!check) {
+          return;
+        }
+        $scope.$apply(() => {
+          $scope.fileName.push(file.name);
+          $scope.uploadedFiles[file.name] = this.data;
+        });
+      };
+      reader.readAsText(file);
 
     };
 
