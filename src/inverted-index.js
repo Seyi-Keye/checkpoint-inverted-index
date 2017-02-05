@@ -61,28 +61,6 @@ class InvertedIndex {
     return this.allFiles[fileName];
   }
   /**
-   * Validate json Array
-   * @function
-   * @param {object} jsonArray
-   * @return {Boolean} true or false
-   */
-  isValidJson(jsonArray) {
-    if (typeof jsonArray !== 'object' || jsonArray.length === 0) {
-      return false;
-    }
-    try {
-      jsonArray.forEach((item) => {
-        if (!(item.hasOwnProperty('title') && item.hasOwnProperty('text'))) {
-          return false;
-        }
-      });
-
-      return true;
-    } catch (err) {
-      return false;
-    }
-  }
-  /**
    * Static tokenize gets unique word
    * @function
    * @param {Array} text

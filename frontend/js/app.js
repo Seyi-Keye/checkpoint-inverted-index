@@ -1,7 +1,11 @@
 angular.module('myApp', [])
   .controller('myctrl', ($scope) => {
     $scope.index = new InvertedIndex();
-
+    const messages = [
+      'This file is not a json file, upload a valid file!',
+      'Cannot find title/text keys in file! Please upload file with correct index',
+      'Invalid file!'
+    ];
     $scope.fileName = [];
     $scope.uploadedFiles = {};
     $scope.documents;
@@ -24,9 +28,12 @@ angular.module('myApp', [])
       const reader = new FileReader();
       reader.onloadend = (event) => {
         this.data = JSON.parse(event.target.result);
-        const check = ValidateFile.isValidContent(this.data);
-        if (!check) {
+        const code = ValidateFile.isValidJson(this.data);
+        if (code !== 3) {
+          swal('Oops', messages[code]);
           return;
+        } else {
+          swal('', 'successful upload');
         }
         $scope.$apply(() => {
           $scope.fileName.push(file.name);

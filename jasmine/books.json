@@ -10,7 +10,7 @@ const book = [
   }
 ];
 
-const empty = [];
+const emptyBook = [];
 
 const wrongFormat = [ {
     "book": "see see see, I can see a bird ",

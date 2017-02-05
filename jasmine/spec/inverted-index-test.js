@@ -1,4 +1,5 @@
 const invertedIndex = new InvertedIndex();
+// const isValid = new ValidateFile();
 
 describe('Inverted Index', () => {
   beforeEach(() => {
@@ -6,16 +7,24 @@ describe('Inverted Index', () => {
   });
 
   describe('Read book data', () => {
-    it('Should return false for empty JSON Array', () => {
-      expect(invertedIndex.isValidJson(empty)).toBeFalsy();
+    it('Should return 0 for empty JSON Array', () => {
+      expect(ValidateFile.isValidJson(emptyBook)).toEqual(0);
     });
 
     it('Should return true for valid JSON Array', () => {
-      expect(invertedIndex.isValidJson(book)).toBeTruthy();
+      expect(ValidateFile.isValidJson(book)).toBeTruthy();
     });
 
-    it('Should return false for wrong key json file', () => {
-      expect(invertedIndex.isValidJson('wrongFormat')).toBeFalsy();
+    it('Should return 1 for wrong key json file', () => {
+      expect(ValidateFile.isValidJson(wrongFormat)).toEqual(1);
+    });
+
+    it('Should return 3 for a valid Json Array', () => {
+      expect(ValidateFile.isValidJson(book)).toEqual(3);
+    });
+
+    it('Should return 2 for a valid Json Array', () => {
+      expect(ValidateFile.isValidJson({})).toEqual(2);
     });
   });
 
