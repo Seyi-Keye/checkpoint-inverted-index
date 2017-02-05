@@ -7,6 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sweetalert.css">
 
 </head>
 
@@ -45,16 +46,16 @@
       <div class="col s6">
         <form>
           <div class="selectFile">
-            <input type="file" id="json-file" accept=".json" multiple></br>
+            <input type="file" id="json-file" multiple required></br>
           </div>
-        </form>
-        <form>
+        <!--</form>
+        <form>-->
           <select class="browser-default" ng-model="selectedFile">
             <option value="" disabled selected>Select File</option>
             <option value="{{files}}" ng-repeat="files in fileName">{{files}}</option>
           </select>
-        </form>
-        <form>
+        <!--</form>
+        <form>-->
           <div class="createIndex">
             <button class="indigo white-text btn" id="createIndex" ng-click="createIndex()">Create index</button>
           </div>
@@ -133,6 +134,7 @@
     <script type="text/javascript" src="/inverted-index.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script src="js/helper.js"></script>
+    <script src="js/sweetalert.min.js"></script>
 </body>
 
 </html>

@@ -1,11 +1,13 @@
 angular.module('myApp', [])
   .controller('myctrl', ($scope) => {
     $scope.index = new InvertedIndex();
+
     $scope.fileName = [];
     $scope.uploadedFiles = {};
     $scope.documents;
     $scope.showTable = false;
     $scope.singleTable = true;
+
 
     document.getElementById('json-file').addEventListener('change', (event) => {
       const file = event.target.files;
@@ -14,24 +16,34 @@ angular.module('myApp', [])
       }
       $scope.$apply();
     });
-
     $scope.upload = (file) => {
+      const checkFile = ValidateFile.fileIsValid(file);
+      if (!checkFile) {
+        return;
+      }
       const reader = new FileReader();
-      reader.onloadend = (event) => {
-        this.data = JSON.parse(event.target.result);
-        $scope.$apply(() => {
-          $scope.fileName.push(file.name);
-          $scope.uploadedFiles[file.name] = this.data;
-        });
-      };
-      reader.readAsText(file);
+        reader.onloadend = (event) => {
+          this.data = JSON.parse(event.target.result);
+          const check = ValidateFile.isValidContent(this.data);
+          if (!check) {
+            return;
+          }
+          $scope.$apply(() => {
+            $scope.fileName.push(file.name);
+            $scope.uploadedFiles[file.name] = this.data;
+          });
+        };
+        reader.readAsText(file);
+
     };
+
 
     $scope.checkInvalid = (content) => {
       if (content.hasOwnProperty('undefined')) {
         return true;
       }
     };
+
 
     $scope.createIndex = () => {
       $scope.singleTable = true;
@@ -40,12 +52,9 @@ angular.module('myApp', [])
         $scope.selectedFile);
       $scope.documents = $scope.index.docNumber[$scope.selectedFile];
       $scope.result = $scope.index.getIndex($scope.selectedFile);
-      if ($scope.checkInvalid($scope.result)) {
-        alert('invalid');
-        return false;
-      }
       $scope.showTable = true;
     };
+
 
     $scope.search = () => {
       if ($scope.searchFile === 'all') {
@@ -57,8 +66,6 @@ angular.module('myApp', [])
         $scope.allTable = false;
         $scope.documents = $scope.index.docNumber[$scope.searchFile];
       }
-      $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query);
+      $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query)
     };
   });
-
-

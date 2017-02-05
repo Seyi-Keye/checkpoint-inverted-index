@@ -12,6 +12,6 @@ engines:
      - javascript
 ratings:
  paths:
- - src/*.js
+ - src/inverted-index.js
 exclude_paths:
 - "jasmine/lib/jasmine-2.3.4/*"
