@@ -41,7 +41,7 @@
     "test": "gulp test",
     "dev": "./node_modules/.bin/gulp",
     "start": "node server.js",
-    "postinstall": "gulp default"
+    "postinstall": "node_modules/gulp/bin/gulp.js default"
   },
   "repository": {
     "type": "git",
