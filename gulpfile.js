@@ -11,7 +11,7 @@ gulp.task('default', ['serve', 'watch']);
 gulp.task('serve', () => {
   browserSync.init({
     server: {
-      baseDir: ['./frontend', './src'],
+      baseDir: ['./src', './src/frontend'],
       index: 'index.html',
     },
     port: 8000
@@ -28,9 +28,9 @@ gulp.task('karma', (done) => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch('frontend/index.html', browserSync.reload);
-  gulp.watch('frontend/js/*.js', browserSync.reload);
-  gulp.watch('frontend/css/*.css', browserSync.reload);
+  gulp.watch('./src/frontend/index.html', browserSync.reload);
+  gulp.watch('./src/frontend/js/*.js', browserSync.reload);
+  gulp.watch('./src/frontend/css/*.css', browserSync.reload);
   gulp.watch('./src/inverted-index.js', browserSync.reload);
   gulp.watch('./jasmine/spec/*.js', browserSync.reload);
 });

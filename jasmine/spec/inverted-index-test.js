@@ -1,5 +1,4 @@
 const invertedIndex = new InvertedIndex();
-// const isValid = new ValidateFile();
 
 describe('Inverted Index', () => {
   beforeEach(() => {

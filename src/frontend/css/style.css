@@ -21,3 +21,6 @@ a {
   margin-top: 20px;
   font-weight: bold;
 }
+#json-file, .browser-default{
+  margin-bottom: 30px;
+}
