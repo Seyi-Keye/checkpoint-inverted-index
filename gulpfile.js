@@ -4,6 +4,7 @@ const karma = require('karma').Server;
 const path = require('path');
 const rename = require('gulp-rename');
 const browserify = require('gulp-browserify');
+const jasmine = require('gulp-jasmine');
 
 gulp.task('default', ['serve', 'watch']);
 
@@ -26,13 +27,13 @@ gulp.task('karma', (done) => {
   });
 });
 
-
 gulp.task('watch', () => {
   gulp.watch('frontend/index.html', browserSync.reload);
   gulp.watch('frontend/js/*.js', browserSync.reload);
   gulp.watch('frontend/css/*.css', browserSync.reload);
-  gulp.watch('./src/inverted-index.js');
+  gulp.watch('./src/inverted-index.js', browserSync.reload);
+  gulp.watch('./jasmine/spec/*.js', browserSync.reload);
 });
 
-
 gulp.task('test', ['karma']);
+

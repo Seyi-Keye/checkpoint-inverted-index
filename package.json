@@ -4,6 +4,7 @@
   "description": "[![Build Status](https://travis-ci.org/andela-oaromokeye/checkpoint-inverted-index.svg?branch=master)](https://travis-ci.org/andela-oaromokeye/checkpoint-inverted-index)",
   "main": "inverted-index.js",
   "devDependencies": {
+    "gulp-jasmine": "^2.4.2"
   },
   "dependencies": {
     "browser-sync": "^2.18.7",
