@@ -1,5 +1,6 @@
 # inverted-index
 [![Coverage Status](https://coveralls.io/repos/github/andela-oaromokeye/checkpoint-inverted-index/badge.svg?branch=staging)](https://coveralls.io/github/andela-oaromokeye/checkpoint-inverted-index?branch=staging)
+[![Code Climate](https://codeclimate.com/repos/5892370ea547b836170023c9/badges/984d7a74bb804124f432/gpa.svg)](https://codeclimate.com/repos/5892370ea547b836170023c9/feed)
 [![Build Status](https://travis-ci.org/andela-oaromokeye/checkpoint-inverted-index.svg?branch=master)](https://travis-ci.org/andela-oaromokeye/checkpoint-inverted-index)
 
 ## Introduction

@@ -7,7 +7,7 @@ class ValidateFile {
   * Static fileIsValid tests for .json in file name
   * @function
   * @param {object} file
-  * @return {Boolean}
+  * @return {Boolean} true or false
   */
   static fileIsValid(file) {
     if (!file.name.match(/\.json$/)) {
@@ -21,7 +21,7 @@ class ValidateFile {
   * Static isValidContent tests for valid file
   * @function
   * @param {Array} fileContent
-  * @return {Array}
+  * @return {Array} fileContent
   */
   static isValidContent(fileContent) {
     if (typeof fileContent !== 'object' || fileContent.length === 0) {
