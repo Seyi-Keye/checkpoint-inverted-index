@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './src/inverted-index.js',
+      './src/frontend/inverted-index.js',
       './jasmine/spec/inverted-index-test.js',
       './jasmine/books.json',
       './src/frontend/js/helper.js'
