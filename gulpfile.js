@@ -21,10 +21,10 @@ gulp.task('scripts', () => {
 gulp.task('browserTest', ['scripts'], () => {
   testBrowserSync.init({
     server: {
-      baseDir: ['./src/frontend/inverted-index.js', './jasmine'],
+      baseDir: ['./src/frontend/', './jasmine'],
       index: 'SpecRunner.html'
     },
-    port: process.env.PORT || 8080,
+    port: 8080,
     ui: false,
     ghostMode: false,
     open: false

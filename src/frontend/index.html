@@ -62,8 +62,9 @@
           </div>
           <select class="browser-default" ng-model="searchFile">
             <option value="" disabled selected>Select File</option>
-            <option value="{{files}}" ng-repeat="files in fileName">{{files}}</option>
             <option value="all">All</option>
+            <option value="{{files}}" ng-repeat="files in fileName">{{files}}</option>
+
           </select>
           <div>
             <button class="indigo white-text btn" id="search" ng-click="search()">Search <i class="material-icons">search</i></button></br>

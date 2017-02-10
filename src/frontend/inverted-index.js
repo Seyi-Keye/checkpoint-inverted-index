@@ -14,32 +14,34 @@ class InvertedIndex {
   /**
    * Create index
    * @function
-   * @param {Array} fileContent
+   * @param {Object} fileContent
    * @param {string} fileName Name of the file being indexed
    * @return {string} Index created or not
    */
   createIndex(fileContent, fileName) {
-    this.index = {}; // initialize empty object to empty this.index in the constructor
+    this.index = {};
     this.docNum = [];
+
     fileContent.forEach((file, index) => {
       const title = file.title;
       const text = file.text;
-      const docCount = index + 1;
+      const documentCount = index + 1;
 
-      this.docNum.push(index + 1);
+      this.docNum.push(documentCount);
       const docConcat = `${title} ${text}`;
       const allWords = InvertedIndex.tokenize(docConcat);
       const word = new Set(allWords);
 
-      this.assignIndex(word, docCount);
+      this.assignIndex(word, documentCount);
     });
     this.allFiles[fileName] = this.index;
     this.docNumber[fileName] = this.docNum;
   }
+
   /**
    * Assign Index
    * @function
-   * @param {Array} item unique item to be indexed
+   * @param {Array} items unique item to be indexed
    * @param {Array} docID file number
    * @return {void}
    */
@@ -63,8 +65,8 @@ class InvertedIndex {
   /**
    * Static tokenize gets unique word
    * @function
-   * @param {Array} text
-   * @return {Array} lowercase of unique words
+   * @param {string} text
+   * @return {string} lowercase of unique words
    */
   static tokenize(text) {
     return text.toLowerCase().match(/\w+/g);

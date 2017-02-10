@@ -39,9 +39,7 @@
   },
   "scripts": {
     "test": "gulp test",
-    "dev": "./node_modules/.bin/gulp",
-    "build": "gulp",
-    "start": "node server.js"
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
