@@ -1,24 +1,49 @@
 const gulp = require('gulp');
-const browserSync = require('browser-sync');
+const browserSync = require('browser-sync').create();
+const testBrowserSync = require('browser-sync').create();
 const karma = require('karma').Server;
 const path = require('path');
 const rename = require('gulp-rename');
 const browserify = require('gulp-browserify');
 const jasmine = require('gulp-jasmine');
 
-gulp.task('default', ['serve', 'watch']);
+const reload = browserSync.reload;
 
-gulp.task('serve', () => {
+gulp.task('default', ['scripts', 'watch', 'browser-sync', 'browserTest']);
+
+gulp.task('scripts', () => {
+  gulp.src('jasmine/spec/inverted-index-test.js')
+    .pipe(browserify())
+    .pipe(rename('bundle.js'))
+    .pipe(gulp.dest('jasmine/build'));
+});
+
+gulp.task('browserTest', ['scripts'], () => {
+  testBrowserSync.init({
+    server: {
+      baseDir: ['./src/frontend/inverted-index.js', './jasmine'],
+      index: 'SpecRunner.html'
+    },
+    port: process.env.PORT || 8080,
+    ui: false,
+    ghostMode: false,
+    open: false
+  });
+});
+
+gulp.task('browser-sync', () => {
   browserSync.init({
     server: {
       baseDir: ['./src', './src/frontend'],
       index: 'index.html',
     },
-    port: 8000
+    port: process.env.PORT || 8000,
+    ui: false,
+    ghostMode: false
   });
 });
 
-gulp.task('karma', (done) => {
+gulp.task('karma', ['scripts'], (done) => {
   karma.start({
     configFile: path.resolve('karma.conf.js'),
     singleRun: true
@@ -27,13 +52,12 @@ gulp.task('karma', (done) => {
   });
 });
 
-gulp.task('watch', () => {
-  gulp.watch('./src/frontend/index.html', browserSync.reload);
+gulp.task('watch', ['browser-sync', 'browserTest'], () => {
+  gulp.watch('./src/frontend/index.html').on('change', reload);
   gulp.watch('./src/frontend/js/*.js', browserSync.reload);
   gulp.watch('./src/frontend/css/*.css', browserSync.reload);
-  gulp.watch('./src/inverted-index.js', browserSync.reload);
-  gulp.watch('./jasmine/spec/*.js', browserSync.reload);
+  gulp.watch(['./src/inverted-index.js', './jasmine/spec/*.js'], ['scripts']);
+  gulp.watch(['./src/inverted-index.js', './jasmine/spec/*.js'], testBrowserSync.reload);
 });
 
-gulp.task('test', ['karma']);
-
+gulp.task('test', ['scripts', 'karma']);

@@ -73,6 +73,6 @@ angular.module('myApp', [])
         $scope.allTable = false;
         $scope.documents = $scope.index.docNumber[$scope.searchFile];
       }
-      $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query)
+      $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query);
     };
   });
