@@ -27,7 +27,7 @@ gulp.task('browserTest', ['scripts'], () => {
     port: 8080,
     ui: false,
     ghostMode: false,
-    open: false
+    // open: false
   });
 });
 
