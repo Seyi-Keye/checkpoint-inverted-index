@@ -20,9 +20,8 @@ ratings:
  paths:
  - src/inverted-index.js
 exclude_paths:
-- "jasmine/lib/jasmine-2.3.4/"
+- jasmine
 - gulpfile.js
 - karma.conf.js
-- jasmine/build/bundle.js
 - src/js/app.js
 
