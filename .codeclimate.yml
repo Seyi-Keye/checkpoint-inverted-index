@@ -2,11 +2,17 @@ engines:
  eslint:
    enabled: true
    channel: "eslint-2"
+   config:
+   extensions:
+   - .es6
+   - .js
+   - .jsx
  duplication:
    enabled: true
    checks:
      Similar code:
        enabled: false
+       Identical code:
    config:
      languages:
      - javascript
@@ -15,3 +21,8 @@ ratings:
  - src/inverted-index.js
 exclude_paths:
 - "jasmine/lib/"
+- gulpfile.js
+- karma.conf.js
+- jasmine/build/bundle.js
+- src/js/app.js
+
