@@ -27,7 +27,6 @@ gulp.task('browserTest', ['scripts'], () => {
     port: 8080,
     ui: false,
     ghostMode: false,
-    // open: false
   });
 });
 
@@ -39,7 +38,8 @@ gulp.task('browser-sync', () => {
     },
     port: process.env.PORT || 8000,
     ui: false,
-    ghostMode: false
+    ghostMode: false,
+    open: false
   });
 });
 

@@ -6,6 +6,9 @@
  */
 class ValidateFile {
 
+  /**
+   * constructor
+  */
   constructor() {
     this.check = {};
   }

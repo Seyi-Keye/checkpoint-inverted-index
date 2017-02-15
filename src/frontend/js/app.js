@@ -4,7 +4,7 @@ angular.module('myApp', [])
 
     $scope.fileName = [];
     $scope.uploadedFiles = {};
-    $scope.documents;
+    $scope.documents = null;
     $scope.showTable = false;
     $scope.singleTable = true;
 
