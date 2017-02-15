@@ -3,5 +3,7 @@ karma.conf.js
 .yml
 .gitignore
 bundle.js
-sweetalert.min.js
-sweetalert.css
+jasmine/lib
+.vscode
+jasmine/build/bundle.js
+src/js

@@ -47,6 +47,11 @@ angular.module('myApp', [])
       $scope.singleTable = true;
       $scope.allTable = false;
 
+      if ($scope.selectedFile === null) {
+        swal('Oops', 'You have to upload and select a file before creating index');
+        return;
+      }
+
       $scope.index.createIndex($scope.uploadedFiles[$scope.selectedFile],
         $scope.selectedFile);
       $scope.documents = $scope.index.docNumber[$scope.selectedFile];
@@ -55,6 +60,10 @@ angular.module('myApp', [])
     };
 
     $scope.search = () => {
+      if ($scope.query === undefined || $scope.searchFile === null) {
+        swal('Oops', 'Please enter a search term and Select a File');
+        return;
+      }
       if ($scope.searchFile === 'all') {
         $scope.singleTable = false;
         $scope.allTable = true;
