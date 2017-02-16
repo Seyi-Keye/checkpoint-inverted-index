@@ -17,16 +17,18 @@ angular.module('myApp', [])
       $scope.$apply();
     });
     $scope.upload = (file) => {
-      const fileCheck = ValidateFile.fileIsValid(file);
-      if (!fileCheck.status) return swal('Oops', fileCheck.message);
+      const fileCheck = fileIsValid(file);
+      if (!fileCheck.status) {
+        return swal('Oops', fileCheck.message);
+      }
 
       const reader = new FileReader();
       reader.onloadend = (event) => {
         this.data = JSON.parse(event.target.result);
-        const check = ValidateFile.isValidContent(this.data);
+        const check = InvertedIndex.isValidContent(this.data);
 
         if (!check.status) return swal('Oops', check.message);
-        swal('', 'successful upload');
+        swal('Success', 'successful upload');
 
         $scope.$apply(() => {
           $scope.fileName.push(file.name);
@@ -76,3 +78,16 @@ angular.module('myApp', [])
       $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query);
     };
   });
+
+fileIsValid = (file) => {
+  console.log(file.type);
+  let check = { status: true, message: 'Valid file!' };
+  if (!/application\/json/.test(file.type)) {
+    console.log(file);
+    check = {
+      status: false,
+      message: 'This file is not a json file, upload a valid file!'
+    };
+  }
+  return check;
+};

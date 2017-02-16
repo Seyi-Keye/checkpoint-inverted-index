@@ -10,6 +10,7 @@ class InvertedIndex {
     this.allFiles = {};
     this.index = {};
     this.docNumber = {};
+    this.check = {};
   }
   /**
    * Create index
@@ -60,6 +61,7 @@ class InvertedIndex {
    * @return {object} all unique words in document with correct index
    */
   getIndex(fileName) {
+    console.log(fileName);
     return this.allFiles[fileName];
   }
   /**
@@ -103,4 +105,55 @@ class InvertedIndex {
     }
     return searchResult;
   }
+
+  /**
+   * Static fileIsValid tests for .json in file name
+   * @function
+   * @param {object} file
+   * @return {Boolean} true or false
+   */
+  static fileIsValid(file) {
+    let check = { status: true, message: 'Valid file!' };
+    if (!/application\/json/.test(file.type)) {
+      check = {
+        status: false,
+        message: 'This file is not a json file, upload a valid file!'
+      };
+    }
+    return check;
+  }
+
+  /**
+   * Static isValidContent tests for valid file
+   * @function
+   * @param {Array} fileContent
+   * @return {Array} fileContent
+   */
+  static isValidContent(fileContent) {
+    let check = { status: true, message: 'Valid file!' };
+    try {
+      if (typeof fileContent !== 'object' || fileContent.length === 0) {
+        check = {
+          status: false,
+          message: 'This file is Empty, upload a valid file!'
+        };
+      }
+      fileContent.forEach((document) => {
+        if (document.title === undefined && document.text === undefined) {
+          check = {
+            status: false,
+            message: 'Cannot find title/text keys in file! Please upload file with correct content'
+          };
+        }
+      });
+    } catch (error) {
+      check = {
+        status: false,
+        message: 'Invalid file!'
+      };
+    }
+    return check;
+  }
+
+
 }

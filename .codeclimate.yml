@@ -18,10 +18,10 @@ engines:
      - javascript
 ratings:
  paths:
- - src/inverted-index.js
+ - src/frontend/inverted-index.js
 exclude_paths:
 - jasmine
 - gulpfile.js
 - karma.conf.js
-- src/js/app.js
+- src/js
 
