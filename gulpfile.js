@@ -5,7 +5,6 @@ const karma = require('karma').Server;
 const path = require('path');
 const rename = require('gulp-rename');
 const browserify = require('gulp-browserify');
-const jasmine = require('gulp-jasmine');
 
 const reload = browserSync.reload;
 

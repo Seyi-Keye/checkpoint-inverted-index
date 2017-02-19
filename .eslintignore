@@ -6,4 +6,4 @@ bundle.js
 jasmine
 .vscode
 jasmine/build/bundle.js
-src/js
+src/frontend/js
