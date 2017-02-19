@@ -63,9 +63,8 @@
             <input placeholder="Search" ng-model="query" id="searchInput" maxlength="100">
           </div>
           <select class="browser-default" ng-model="searchFile">
-            <option value="" default>All</option>
-            <option value="{{files}}" ng-repeat="files in fileName track by $index">{{files}}</option>
-
+            <option value default>All</option>
+            <option value="{{files}}" ng-repeat="files in filesIndexed track by $index">{{files}}</option>
           </select>
           <div>
             <button class="indigo white-text btn" id="search" ng-click="search()">Search <i class="material-icons">search</i></button></br>

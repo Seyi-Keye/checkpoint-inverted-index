@@ -13,7 +13,7 @@ class InvertedIndex {
    * Create index
    * @function
    * @param {string} fileName Name of the file being indexed
-   * @param {Array} fileContent
+   * @param {Array} fileContent array content
    * @return {void}
    */
   createIndex(fileName, fileContent) {
@@ -59,6 +59,7 @@ class InvertedIndex {
   static tokenize(text) {
     return text.toLowerCase().match(/\w+/g);
   }
+
   /**
    * searchIndex searches through created index
    * @param {string} query the set of input string to be searched

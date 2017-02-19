@@ -7,6 +7,7 @@ angular.module('myApp', [])
     $scope.documents = {};
     $scope.showTable = false;
     $scope.singleTable = true;
+    $scope.filesIndexed = [];
 
 
     document.getElementById('json-file').addEventListener('change', (event) => {
@@ -51,13 +52,15 @@ angular.module('myApp', [])
       if ($scope.selectedFile === null) {
         swal('Oops', 'You have to upload and select a file before creating index');
         return;
+
       }
 
-      $scope.index.createIndex($scope.uploadedFiles[$scope.selectedFile],
-        $scope.selectedFile);
+      $scope.index.createIndex(
+        $scope.selectedFile, $scope.uploadedFiles[$scope.selectedFile]);
       $scope.documents = $scope.uploadedFiles[$scope.selectedFile];
       $scope.result = $scope.index.getIndex($scope.selectedFile);
       $scope.showTable = true;
+          $scope.filesIndexed.push($scope.selectedFile);
     };
 
     $scope.search = () => {
@@ -66,12 +69,12 @@ angular.module('myApp', [])
         swal('Oops', 'Please enter a search term and Select a File');
         return;
       }
-
-      if ($scope.searchFile === '') {
+      if ($scope.searchFile === undefined) {
         $scope.documents = $scope.uploadedFiles;
-        $scope.result = $scope.index.searchIndex(null, $scope.query);
+        $scope.result = $scope.index.searchIndex($scope.query);
+
       } else {
-        $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query);
+        $scope.result = $scope.index.searchIndex($scope.query, $scope.searchFile);
         $scope.documents[$scope.searchFile] = $scope.uploadedFiles[$scope.searchFile];
       }
       $scope.singleTable = false;
