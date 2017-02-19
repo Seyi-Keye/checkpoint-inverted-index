@@ -3,7 +3,7 @@ karma.conf.js
 .yml
 .gitignore
 bundle.js
-jasmine/lib
+jasmine
 .vscode
 jasmine/build/bundle.js
 src/js

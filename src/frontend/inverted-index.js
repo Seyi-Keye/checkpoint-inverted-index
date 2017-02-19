@@ -8,50 +8,37 @@ class InvertedIndex {
    */
   constructor() {
     this.allFiles = {};
-    this.index = {};
-    this.docNumber = {};
-    this.check = {};
   }
   /**
    * Create index
    * @function
-   * @param {Object} fileContent
    * @param {string} fileName Name of the file being indexed
-   * @return {string} Index created or not
+   * @param {Array} fileContent
+   * @return {void}
    */
-  createIndex(fileContent, fileName) {
-    this.index = {};
-    this.docNum = [];
-
-    fileContent.forEach((file, index) => {
-      const title = file.title;
-      const text = file.text;
-      const documentCount = index + 1;
-
-      this.docNum.push(documentCount);
-      const docConcat = `${title} ${text}`;
-      const allWords = InvertedIndex.tokenize(docConcat);
-      const word = new Set(allWords);
-
-      this.assignIndex(word, documentCount);
+  createIndex(fileName, fileContent) {
+    const index = {};
+    this.allFiles[fileName] = {};
+    fileContent.forEach((book, index) => {
+      const allWords = new Set(InvertedIndex.tokenize(`${book.text}`));
+      this.assignIndex(allWords, index + 1, fileName);
     });
-    this.allFiles[fileName] = this.index;
-    this.docNumber[fileName] = this.docNum;
   }
 
   /**
    * Assign Index
    * @function
-   * @param {Array} items unique item to be indexed
-   * @param {Array} docID file number
+   * @param {Array} tokens unique items to be indexed
+   * @param {Integer} bookIndex file number
+   * @param {String} filename file number
    * @return {void}
    */
-  assignIndex(items, docID) {
-    items.forEach((item) => {
-      if (item in this.index) {
-        this.index[item].push(docID);
+  assignIndex(tokens, bookIndex, filename) {
+    tokens.forEach((token) => {
+      if (this.allFiles[filename][token]) {
+        this.allFiles[filename][token].push(bookIndex);
       } else {
-        this.index[item] = [docID];
+        this.allFiles[filename][token] = [bookIndex];
       }
     });
   }
@@ -61,45 +48,45 @@ class InvertedIndex {
    * @return {object} all unique words in document with correct index
    */
   getIndex(fileName) {
-    console.log(fileName);
     return this.allFiles[fileName];
   }
   /**
-   * Static tokenize gets unique word
+   * Static tokenize gets all words
    * @function
    * @param {string} text
-   * @return {string} lowercase of unique words
+   * @return {array} array of words in lowercase
    */
   static tokenize(text) {
     return text.toLowerCase().match(/\w+/g);
   }
   /**
    * searchIndex searches through created index
-   * @param {string} fileName name of file to be searched
    * @param {string} query the set of input string to be searched
+   * @param {string} fileName name of file to be searched
    * @return {object} searchResult
    */
-  searchIndex(fileName, query) {
-    let searchQuery = [];
+  searchIndex(query, fileName) {
     const searchResult = {};
-
-    searchQuery = InvertedIndex.tokenize(query);
-
-    if (fileName === 'all') {
+    const searchQuery = InvertedIndex.tokenize(query.toString());
+    if (!fileName) {
       const all = Object.keys(this.allFiles);
-      all.forEach((book) => {
-        const result = {};
+      all.forEach((filename) => {
+        searchResult[filename] = {};
         searchQuery.forEach((word) => {
-          if (word in this.allFiles[book]) {
-            result[word] = this.allFiles[book];
-            searchResult[book] = result;
+          if (this.allFiles[filename][word]) {
+            searchResult[filename][word] = this.allFiles[filename][word];
+          } else {
+            searchResult[filename][word] = [];
           }
         });
       });
     } else {
+      searchResult[fileName] = {};
       searchQuery.forEach((word) => {
-        if (word in this.allFiles[fileName]) {
-          searchResult[word] = this.allFiles[fileName][word];
+        if (this.allFiles[fileName][word]) {
+          searchResult[fileName][word] = this.allFiles[fileName][word];
+        } else {
+          searchResult[fileName][word] = [];
         }
       });
     }
@@ -113,14 +100,7 @@ class InvertedIndex {
    * @return {Boolean} true or false
    */
   static fileIsValid(file) {
-    let check = { status: true, message: 'Valid file!' };
-    if (!/application\/json/.test(file.type)) {
-      check = {
-        status: false,
-        message: 'This file is not a json file, upload a valid file!'
-      };
-    }
-    return check;
+    return /application\/json/.test(file.type);
   }
 
   /**
@@ -130,30 +110,15 @@ class InvertedIndex {
    * @return {Array} fileContent
    */
   static isValidContent(fileContent) {
-    let check = { status: true, message: 'Valid file!' };
-    try {
-      if (typeof fileContent !== 'object' || fileContent.length === 0) {
-        check = {
-          status: false,
-          message: 'This file is Empty, upload a valid file!'
-        };
-      }
-      fileContent.forEach((document) => {
-        if (document.title === undefined && document.text === undefined) {
-          check = {
-            status: false,
-            message: 'Cannot find title/text keys in file! Please upload file with correct content'
-          };
-        }
-      });
-    } catch (error) {
-      check = {
-        status: false,
-        message: 'Invalid file!'
-      };
+    let status = true;
+    if (!Array.isArray(fileContent) || fileContent.length === 0) {
+      status = false;
     }
-    return check;
+    fileContent.forEach((book) => {
+      if (book.title === undefined && book.text === undefined) {
+        status = false;
+      }
+    });
+    return status;
   }
-
-
 }

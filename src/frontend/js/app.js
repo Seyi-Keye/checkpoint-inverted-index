@@ -4,7 +4,7 @@ angular.module('myApp', [])
 
     $scope.fileName = [];
     $scope.uploadedFiles = {};
-    $scope.documents = null;
+    $scope.documents = {};
     $scope.showTable = false;
     $scope.singleTable = true;
 
@@ -17,22 +17,21 @@ angular.module('myApp', [])
       $scope.$apply();
     });
     $scope.upload = (file) => {
-      const fileCheck = fileIsValid(file);
-      if (!fileCheck.status) {
-        return swal('Oops', fileCheck.message);
+      if (!InvertedIndex.fileIsValid(file)) {
+        return swal('Oops', 'This file is not a json file, upload a valid file!');
       }
 
       const reader = new FileReader();
       reader.onloadend = (event) => {
-        this.data = JSON.parse(event.target.result);
-        const check = InvertedIndex.isValidContent(this.data);
-
-        if (!check.status) return swal('Oops', check.message);
+        const data = JSON.parse(event.target.result);
+        const status = InvertedIndex.isValidContent(data);
+        $scope.uploadedFiles[file.name] = data;
+        if (!status) return swal('Oops', 'file content must have objects with title and text keys');
         swal('Success', 'successful upload');
 
         $scope.$apply(() => {
           $scope.fileName.push(file.name);
-          $scope.uploadedFiles[file.name] = this.data;
+          $scope.uploadedFiles[file.name] = data;
         });
       };
       reader.readAsText(file);
@@ -56,38 +55,26 @@ angular.module('myApp', [])
 
       $scope.index.createIndex($scope.uploadedFiles[$scope.selectedFile],
         $scope.selectedFile);
-      $scope.documents = $scope.index.docNumber[$scope.selectedFile];
+      $scope.documents = $scope.uploadedFiles[$scope.selectedFile];
       $scope.result = $scope.index.getIndex($scope.selectedFile);
       $scope.showTable = true;
     };
 
     $scope.search = () => {
-      if ($scope.query === undefined || $scope.searchFile === null) {
+      $scope.documents = {};
+      if ($scope.query === '') {
         swal('Oops', 'Please enter a search term and Select a File');
         return;
       }
-      if ($scope.searchFile === 'all') {
-        $scope.singleTable = false;
-        $scope.allTable = true;
-        $scope.documents = $scope.index.docNumber;
+
+      if ($scope.searchFile === '') {
+        $scope.documents = $scope.uploadedFiles;
+        $scope.result = $scope.index.searchIndex(null, $scope.query);
       } else {
-        $scope.singleTable = true;
-        $scope.allTable = false;
-        $scope.documents = $scope.index.docNumber[$scope.searchFile];
+        $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query);
+        $scope.documents[$scope.searchFile] = $scope.uploadedFiles[$scope.searchFile];
       }
-      $scope.result = $scope.index.searchIndex($scope.searchFile, $scope.query);
+      $scope.singleTable = false;
+      $scope.allTable = true;
     };
   });
-
-fileIsValid = (file) => {
-  console.log(file.type);
-  let check = { status: true, message: 'Valid file!' };
-  if (!/application\/json/.test(file.type)) {
-    console.log(file);
-    check = {
-      status: false,
-      message: 'This file is not a json file, upload a valid file!'
-    };
-  }
-  return check;
-};
