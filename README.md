@@ -27,7 +27,7 @@ Inverted index takes a JSON array of text objects and creates an index from the 
  - To run the tests run: `npm test`
 
 ## Limitation
-- This application can only create an index for a file at a particular time and not multiply files at once.
+- This application can only create index for one file at a time and not multiply files at once.
 
 ## Contributing
  1. Fork this repository to your account.
@@ -35,3 +35,5 @@ Inverted index takes a JSON array of text objects and creates an index from the 
  3. Create your feature branch: `git checkout -b new-feature`
  4. Commit your changes: `git commit -m "did something"`
  5. Push to the remote branch: `git push origin new-feature`
+
+This is a link to the app on [heroku](https://seyi-keye-inverted-index.herokuapp.com/)
