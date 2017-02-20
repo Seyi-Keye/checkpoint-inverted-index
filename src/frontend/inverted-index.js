@@ -17,7 +17,6 @@ class InvertedIndex {
    * @return {void}
    */
   createIndex(fileName, fileContent) {
-    const index = {};
     this.allFiles[fileName] = {};
     fileContent.forEach((book, index) => {
       const allWords = new Set(InvertedIndex.tokenize(`${book.text}`));
