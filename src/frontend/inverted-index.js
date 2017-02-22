@@ -27,9 +27,9 @@ class InvertedIndex {
   /**
    * Assign Index
    * @function
-   * @param {Array} tokens unique items to be indexed
+   * @param {Array} tokens array of tokens
    * @param {Integer} bookIndex file number
-   * @param {String} filename file number
+   * @param {String} filename file name
    * @return {void}
    */
   assignIndex(tokens, bookIndex, filename) {
@@ -43,7 +43,7 @@ class InvertedIndex {
   }
   /**
    * gets the Index
-   * @param {string} fileName fileName is the name of the file to be searched
+   * @param {string} fileName name of file
    * @return {object} all unique words in document with correct index
    */
   getIndex(fileName) {
@@ -107,7 +107,7 @@ class InvertedIndex {
    * Static isValidContent tests for valid file
    * @function
    * @param {Array} fileContent
-   * @return {Array} fileContent
+   * @return {Boolean} status true or false
    */
   static isValidContent(fileContent) {
     let status = true;

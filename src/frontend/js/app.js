@@ -62,14 +62,14 @@ angular.module('myApp', [])
       $scope.showTable = true;
           $scope.filesIndexed.push($scope.selectedFile);
     };
-
+    $scope.searchFile = 'all';
     $scope.search = () => {
       $scope.documents = {};
       if ($scope.query === '') {
         swal('Oops', 'Please enter a search term and Select a File');
         return;
       }
-      if ($scope.searchFile === undefined) {
+      if ($scope.searchFile === 'all') {
         $scope.documents = $scope.uploadedFiles;
         $scope.result = $scope.index.searchIndex($scope.query);
 
