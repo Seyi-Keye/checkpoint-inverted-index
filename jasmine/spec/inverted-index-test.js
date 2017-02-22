@@ -23,8 +23,35 @@ describe('Inverted Index', () => {
     });
 
     describe('Populate Index', () => {
+      it(`should verify that the index is created once the JSON
+    file has been read`, () => {
+      invertedIndex.createIndex('note.json', [
+          {"title": "New start",
+        "text": "This is a testcase" },
+        {"title": "Very well",
+      "text": "This is TIA"}]);
+      expect(Object.prototype.hasOwnProperty.call(invertedIndex.allFiles, 'note.json'))
+      .toEqual(true);
+      expect(Object.keys(invertedIndex.allFiles['note.json']).length).not.toEqual(0);
+    });
+
+
+
       it('Should create index once JSON file has been read', () => {
-        expect(invertedIndex.getIndex('books.json')).toBeDefined();
+        invertedIndex.createIndex('note.json',
+        [
+          {"title": "New start",
+        "text": "This is a testcase" },
+        {"title": "Very well",
+      "text": "This is TIA"}])
+      expect(invertedIndex.allFiles['note.json']).toEqual(
+           {
+            this: [1, 2],
+            is: [1, 2],
+            a: [1],
+            testcase: [1],
+            tia: [2]
+      });
       });
 
       it('Should ensure each key maps correct object', () => {
@@ -78,7 +105,12 @@ describe('Inverted Index', () => {
           'testing.json': {
             alice: [],
             a: [1, 2]
+          },
+          'note.json': {
+            alice: [  ],
+            a: [ 1 ]
           }
+
         });
       });
 
