@@ -52,20 +52,23 @@ angular.module('myApp', [])
       if ($scope.selectedFile === null) {
         swal('Oops', 'You have to upload and select a file before creating index');
         return;
-
       }
-
-      $scope.index.createIndex(
+      if(!$scope.filesIndexed.includes($scope.selectedFile)){
+        $scope.index.createIndex(
         $scope.selectedFile, $scope.uploadedFiles[$scope.selectedFile]);
       $scope.documents = $scope.uploadedFiles[$scope.selectedFile];
       $scope.result = $scope.index.getIndex($scope.selectedFile);
       $scope.showTable = true;
           $scope.filesIndexed.push($scope.selectedFile);
+      } else{
+        swal('OOps', 'Index of this file already exists');
+      }
     };
+
     $scope.searchFile = 'all';
     $scope.search = () => {
       $scope.documents = {};
-      if ($scope.query === '') {
+      if ($scope.query === undefined) {
         swal('Oops', 'Please enter a search term and Select a File');
         return;
       }
