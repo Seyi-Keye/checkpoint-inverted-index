@@ -1,12 +1,11 @@
+/* eslint import/no-unresolved: 2*/
 const invertedIndex = new InvertedIndex();
-const book = require('../books.json');
-const book1 = require('../testing.json');
-const emptyBook = require('../emptyBook.json');
-const wrongFormat = require('../wrongFormat.json');
+const books = require('../books');
+const testing = require('../testing');
+const emptyBook = require('../emptyBook');
+const wrongFormat = require('../wrongFormat');
+const note = require('../note');
 const notFileType = require('../what');
-
-invertedIndex.createIndex('books.json', book);
-invertedIndex.createIndex('testing.json', book1);
 
 describe('Inverted Index', () => {
   describe('Read book data', () => {
@@ -23,97 +22,40 @@ describe('Inverted Index', () => {
     });
 
     describe('Populate Index', () => {
-      it(`should verify that the index is created once the JSON
-    file has been read`, () => {
-      invertedIndex.createIndex('note.json', [
-          {"title": "New start",
-        "text": "This is a testcase" },
-        {"title": "Very well",
-      "text": "This is TIA"}]);
-      expect(Object.prototype.hasOwnProperty.call(invertedIndex.allFiles, 'note.json'))
-      .toEqual(true);
-      expect(Object.keys(invertedIndex.allFiles['note.json']).length).not.toEqual(0);
-    });
-
-
+      it('should verify that the index is created once the JSON file has been read', () => { invertedIndex.createIndex('note', note);
+        expect(Object.prototype.hasOwnProperty.call(invertedIndex.allFiles, 'note')).toEqual(true);
+        expect(Object.keys(invertedIndex.allFiles['note']).length).not.toEqual(0);
+      });
 
       it('Should create index once JSON file has been read', () => {
-        invertedIndex.createIndex('note.json',
-        [
-          {"title": "New start",
-        "text": "This is a testcase" },
-        {"title": "Very well",
-      "text": "This is TIA"}])
-      expect(invertedIndex.allFiles['note.json']).toEqual(
-           {
-            this: [1, 2],
-            is: [1, 2],
-            a: [1],
-            testcase: [1],
-            tia: [2]
-      });
+        invertedIndex.createIndex('note', note);
+        expect(invertedIndex.allFiles['note']).toEqual(
+          { this: [0, 1], is: [0, 1], a: [0], testcase: [0], tia: [1] });
       });
 
-      it('Should ensure each key maps correct object', () => {
-        expect(invertedIndex.getIndex('books.json').alice).toEqual([1]);
+      it('Should ensure each key maps correct object', () => { invertedIndex.createIndex('books', books);
+        expect(invertedIndex.getIndex('books').alice).toEqual([0]);
       });
     });
 
     describe('Search Index', () => {
       it('Should return correct index for search terms', () => {
-        expect(invertedIndex.searchIndex('alice, a , of', 'books.json')).toEqual({
-          'books.json': {
-            alice: [1],
-            a: [1, 2],
-            of: [1, 2]
-          }
-        });
+        expect(invertedIndex.searchIndex('alice a of', 'books')).toEqual({ books: { alice: [0], a: [0, 1], of: [0, 1] } });
       });
 
-      it('should return search result if an array is passed in as search term', () => {
-        expect(invertedIndex.searchIndex(['alice', 'man'], 'books.json')).toEqual({
-          'books.json': {
-            alice: [1],
-            man: [2]
-          }
-        });
+      it('should return search result if an array is passed in as search term', () => { invertedIndex.createIndex('testing', testing);
+        expect(invertedIndex.searchIndex(['alice', 'man'], 'books')).toEqual({ books: { alice: [0], man: [1] } });
 
-        expect(invertedIndex.searchIndex(['seyi', 'in', 'amity'], 'testing.json')).toEqual({
-          'testing.json': {
-            seyi: [1, 2],
-            in: [],
-            amity: []
-          }
-        });
+        expect(invertedIndex.searchIndex(['seyi', 'in', 'amity'], 'testing')).toEqual({ testing: { seyi: [0, 1], in: [], amity: [] } });
       });
 
       it('Should return correct index results for searched term', () => {
-        expect(invertedIndex.searchIndex('alice a', 'testing.json')).toEqual({
-          'testing.json': {
-            alice: [],
-            a: [1, 2]
-          }
-        });
+        expect(invertedIndex.searchIndex('alice a', 'testing')).toEqual({
+          testing: { alice: [], a: [0, 1] } });
       });
 
-      it('should go through all indexed files if a filename is not passed', () => {
-        expect(invertedIndex.searchIndex('alice a')).toEqual({
-          'books.json': {
-            alice: [1],
-            a: [1, 2]
-          },
-          'testing.json': {
-            alice: [],
-            a: [1, 2]
-          },
-          'note.json': {
-            alice: [  ],
-            a: [ 1 ]
-          }
-
-        });
-      });
-
-    });
-  });
+      it('should go through all indexed files if a filename is not passed', () => { expect(invertedIndex.searchIndex('alice a')).toEqual({
+        books: { alice: [0], a: [0, 1] },
+        testing: { alice: [], a: [0, 1] },
+        note: { alice: [], a: [0] } }); }); }); });
 });

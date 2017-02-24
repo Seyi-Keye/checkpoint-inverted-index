@@ -2,9 +2,8 @@ node_modules/*
 karma.conf.js
 .yml
 .gitignore
-bundle.js
-jasmine/*
 .vscode
 jasmine/build/bundle.js
 src/frontend/js/*
-gulpfile.js
+jasmine/lib/jasmine-2.3.4/*.js
+coverage

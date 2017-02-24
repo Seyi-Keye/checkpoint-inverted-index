@@ -1,1 +1,1 @@
-const what = 'yyyy';
+const what = 'welcome to Andela';
