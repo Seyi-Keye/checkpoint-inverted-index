@@ -1,0 +1,26 @@
+h3 {
+  font-family: 'Tangerine', serif;
+  font-size: 35px;
+  padding-left: 20px;
+  text-align: center;
+}
+
+a {
+  font-size: 20px;
+  font-family: 'Arsenal';
+  padding-right: 20px;
+}
+
+.modal-content {
+  background-color: mintcream;
+  color: black;
+  font-family: 'Arsenal';
+}
+
+.bookDetails {
+  margin-top: 20px;
+  font-weight: bold;
+}
+#json-file, .browser-default{
+  margin-bottom: 30px;
+}

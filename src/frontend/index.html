@@ -1,0 +1,127 @@
+<html ng-app="myApp">
+
+<head>
+  <title> Inverted Index</title>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Tangerine:bold">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sweetalert.css">
+</head>
+
+<body ng-controller="myctrl">
+  <div class="row">
+    <div class="inverted indigo col s12 white-text">
+      <h3> Inverted Index <a class="waves-effect indigo white-text right" href="#modal1">About</a></h3>
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h5>Inverted Index</h5>
+          <p>An inverted index consists of a list of all the unique words that appear
+            in any document, and for each word, a list of the documents in which
+            it appears. Inverted index object takes a JSON array of text objects
+            and creates an index from the array. The index allows a user to search
+            for text blocks in the array that contain a specified collection of words.</p>
+          <h5>How It Works</h5>
+          <ul>
+            <li><strong>Creating an Index</strong></li>
+            <ol>
+              <li>Choose JSON file(s).</l1>
+                <li>Select JSON file.</li>
+                <li>Click <strong>Create Index</strong> button</li>
+            </ol>
+            <li><strong>Searching an Index</strong></li>
+            <ol>
+              <li>Select a file whose Index has been created already.</l1>
+                <li>Enter your search word(s)</li>
+                <li>Click on the 'search' button.</li>
+            </ol>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col s6">
+        <form>
+          <div class="selectFile">
+            <input type="file" id="json-file" multiple></br>
+          </div>
+          <select class="browser-default" ng-model="selectedFile">
+            <option value="" disabled selected>Select File</option>
+            <option value="{{files}}" ng-repeat="files in fileName track by $index">{{files}}</option>
+          </select>
+          <div class="createIndex">
+            <button class="indigo white-text btn" id="createIndex" ng-click="createIndex()">Create index</button>
+          </div>
+        </form>
+      </div>
+      <div class="col s6">
+        <form>
+          <div class="searchIndex">
+            <input placeholder="Search" ng-model="query" id="searchInput" maxlength="100">
+          </div>
+          <select class="browser-default" ng-model="searchFile">
+            <option value="all" default>All</option>
+            <option value="{{files}}" ng-repeat="files in filesIndexed track by $index">{{files}}</option>
+          </select>
+          <div>
+            <button class="indigo white-text btn" id="search" ng-click="search()">Search <i class="material-icons">search</i></button></br>
+          </div>
+        </form>
+      </div>
+      <span ng-show="singleTable">
+      <table class="striped">
+        <thead>
+          <tr>
+            <span ng-if="documents">
+            <th data-field="id">{{selectedFile}}</th>
+            <th ng-repeat="book in documents track by $index">{{book.title}}</th>
+            </span>
+      </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key,values) in result track by $index">
+          <td> {{key}}</td>
+          <td ng-repeat="book in documents track by $index">
+            <span ng-if="values.includes($index + 1)"><i class="material-icons">check</i>
+              </span>
+            <span ng-if="!values.includes($index + 1)"><i class="material-icons">close</i>
+              </span>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+      </span>
+      <span ng-show="allTable" ng-repeat="(filename, value) in documents track by $index">
+         <div class="bookDetails">{{filename}}</div>
+       <table class="striped">
+         <thead>
+           <tr>
+             <th ng-if="value">Words</th>
+             <th ng-repeat="book in value track by $index">{{book.title}}</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key, values) in result[filename] ">
+                <td>{{ key }}</td>
+                <td ng-repeat="i in documents[filename] track by $index">
+                <span ng-if="values.includes($index + 1)"><i class="material-icons">check</i>
+              </span>
+            <span ng-if="!values.includes($index + 1)"><i class="material-icons">close</i>
+              </span>
+      </tr>
+      </tbody>
+      </table>
+      </span>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="./inverted-index.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+</body>
+
+</html>
