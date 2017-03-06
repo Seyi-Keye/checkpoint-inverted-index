@@ -1,8 +1,0 @@
-
-{
-  "name": "Inverted-Index",
-  "description": "A simple inverted index application",
-  "repository": "https://github.com/andela-oaromokeye/inverted-index",
-  "keywords": ["Oluwaseyi","Omolade","Aromokeye","andela","software", "inverted-index", "inverted", "index", "elastic search"],
-  "image": "heroku/nodejs"
-}
