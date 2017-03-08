@@ -28,7 +28,7 @@ This application creates an Inverted Index from each text property of the JSON f
 This app can be installed and run locally. Follow the steps below
 - Clone this repo
 ```
-git clone https://github.com/andela-rbabalola/Inverted-Index.git
+git clone https://github.com/andela-oaromokeye/checkpoint-inverted-index.git
 ```
 - Install dependencies (Ensure you have [Node.js] (nodejs.org) installed first)
 ```
