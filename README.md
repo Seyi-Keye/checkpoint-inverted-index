@@ -48,6 +48,7 @@ This launches the app on your default browser on http://localhost:3000
 - Select file to be indexed using the dropdown box
 - Click create index button to output the index of the particular file
 - Full text search can be made at the top right corner of the page.
+
 #### Online
 This application is hosted on Heroku and can be accessed through this [link] (https://seyi-keye-inverted-index.herokuapp.com/)
 
