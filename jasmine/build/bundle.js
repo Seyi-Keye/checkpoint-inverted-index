@@ -50,20 +50,15 @@ describe('Populate Index', () => {
       invertedIndex.createIndex('note', note);
       expect(Object.prototype.hasOwnProperty.call(invertedIndex.allFiles,
         'note')).toEqual(true);
-      expect(Object.keys(
-        invertedIndex.allFiles['note']).length).not.toEqual(0);
+      expect(Object.keys(invertedIndex.getIndex('note')).length).not.toEqual(0);
+      expect(invertedIndex.getIndex('note')).toEqual({
+        this: [0, 1],
+        is: [0, 1],
+        a: [0],
+        testcase: [0],
+        tia: [1]
+      });
     });
-
-  it('Should create index once JSON file has been read', () => {
-    invertedIndex.createIndex('note', note);
-    expect(invertedIndex.allFiles['note']).toEqual({
-      this: [0, 1],
-      is: [0, 1],
-      a: [0],
-      testcase: [0],
-      tia: [1]
-    });
-  });
 
   it('Should ensure each key maps correct object', () => {
     invertedIndex.createIndex('books', books);
